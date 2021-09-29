@@ -865,7 +865,6 @@ components:
           type: number
           description: Total received
           format: double
-          nullable: true
         countReceived:
           type: integer
           description: Count of received
