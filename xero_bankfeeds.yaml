@@ -89,6 +89,7 @@ paths:
       summary: Create one or more new feed connection
       operationId: createFeedConnections
       x-hasBankFeedsValidationError: true
+      x-group-parameters: true
       description: By passing in the FeedConnections array object in the body, you can create one or more new feed connections
       requestBody:
         required: true
