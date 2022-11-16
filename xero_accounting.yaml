@@ -4161,7 +4161,7 @@ paths:
         - Accounting
       operationId: updateOrCreateContacts
       summary: 'Updates or creates one or more contacts in a Xero organisation'
-      x-hasAccountingValidationError: true
+      x-hasAccountingValidationError: false
       x-example:
         - phone:
           is_object: true
