@@ -149,6 +149,8 @@ namespace {{packageName}}.Client
     {{>visibility}} partial class ApiClient : ISynchronousClient{{#supportsAsync}}, IAsynchronousClient{{/supportsAsync}}
     {
         private readonly String _baseUrl;
+        private CancellationTokenSource cancellationTokenSource;
+        private CancellationToken cancellationToken;
 
         /// <summary>
         /// Allows for extending request processing for <see cref="ApiClient"/> generated code.
@@ -169,6 +171,9 @@ namespace {{packageName}}.Client
         public ApiClient()
         {
             _baseUrl = {{packageName}}.Client.GlobalConfiguration.Instance.BasePath;
+
+            cancellationTokenSource = new CancellationTokenSource();
+            cancellationToken = cancellationTokenSource.Token;
         }
 
         /// <summary>
@@ -182,6 +187,9 @@ namespace {{packageName}}.Client
                 throw new ArgumentException("basePath cannot be empty");
 
             _baseUrl = basePath;
+
+            cancellationTokenSource = new CancellationTokenSource();
+            cancellationToken = cancellationTokenSource.Token;
         }
 
         /// <summary>
