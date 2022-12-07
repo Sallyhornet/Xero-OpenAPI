@@ -24,3 +24,7 @@ jobs:
                 level: warning
               new-line-at-end-of-file:
                 level: warning
+      - name: spectral
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: '*.yaml'
