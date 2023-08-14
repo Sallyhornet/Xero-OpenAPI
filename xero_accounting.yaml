@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Xero Accounting API
-  version: "2.36.0"
+  version: "2.39.0"
   termsOfService: "https://developer.xero.com/xero-developer-platform-terms-conditions/"
   contact:
     name: "Xero Platform Team"
@@ -4471,7 +4471,6 @@ paths:
                             "LastName": "Kohler",
                             "CompanyNumber": "NumberBusiness1234",
                             "EmailAddress": "bk@krave.co",
-                            "SkypeUserName": "blake",
                             "BankAccountDetails": "12334567",
                             "TaxNumber": "123-22-3456",
                             "AccountsReceivableTaxType": "TAX003",
@@ -4621,7 +4620,6 @@ paths:
                             "LastName": "Kohler",
                             "CompanyNumber": "NumberBusiness1234",
                             "EmailAddress": "bk@krave.co",
-                            "SkypeUserName": "blake",
                             "BankAccountDetails": "12334567",
                             "TaxNumber": "123-22-3456",
                             "AccountsReceivableTaxType": "TAX003",
@@ -6637,7 +6635,7 @@ paths:
                             ]
                           }
                         ]
-                      }'
+                      }'    
   '/CreditNotes/{CreditNoteID}/Attachments':
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
@@ -6964,6 +6962,36 @@ paths:
                           }
                         ]
                       }'
+  '/CreditNotes/{CreditNoteID}/Allocations/{AllocationID}':
+    parameters:
+      - $ref: '#/components/parameters/requiredHeader'
+    delete:
+      security:
+        - OAuth2: [accounting.transactions]
+      tags:
+        - Accounting
+      operationId: deleteCreditNoteAllocations
+      summary: Deletes an Allocation from a Credit Note
+      parameters:
+        - $ref: '#/components/parameters/CreditNoteID'
+        - $ref: '#/components/parameters/AllocationID'
+      responses:
+        '200':
+          description: Success - return response of type Allocation with the isDeleted flag as true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+              example: '{
+                          "AllocationId": "2bb15054-3868-4f85-a9c6-0402ec8c1201",
+                          "Date": "\/Date(1551822670731)\/",
+                          "Invoice": [
+                            {
+                              "InvoiceID": "b7eb1fc9-a0f9-4e8e-9373-6689f5350832",
+                            }
+                          ],
+                          "IsDeleted": true,
+                        }'                      
   '/CreditNotes/{CreditNoteID}/History':
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
@@ -12534,6 +12562,36 @@ paths:
                             }
                           ]
                         }'
+  '/Overpayments/{OverpaymentID}/Allocations/{AllocationID}':
+    parameters:
+      - $ref: '#/components/parameters/requiredHeader'
+    delete:
+      security:
+        - OAuth2: [accounting.transactions]
+      tags:
+        - Accounting
+      operationId: deleteOverpaymentAllocations
+      summary: Deletes an Allocation from an overpayment
+      parameters:
+        - $ref: '#/components/parameters/OverpaymentID'
+        - $ref: '#/components/parameters/AllocationID'
+      responses:
+        '200':
+          description: Success - return response of type Allocation with the isDeleted flag as true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+              example: '{
+                          "AllocationId": "2bb15054-3868-4f85-a9c6-0402ec8c1201",
+                          "Date": "\/Date(1551822670731)\/",
+                          "Invoice": [
+                            {
+                              "InvoiceID": "b7eb1fc9-a0f9-4e8e-9373-6689f5350832",
+                            }
+                          ],
+                          "IsDeleted": true,
+                        }'                                     
   '/Overpayments/{OverpaymentID}/History':
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
@@ -13946,6 +14004,36 @@ paths:
                             }
                           ]
                         }'
+  '/Prepayments/{PrepaymentID}/Allocations/{AllocationID}':
+    parameters:
+      - $ref: '#/components/parameters/requiredHeader'
+    delete:
+      security:
+        - OAuth2: [accounting.transactions]
+      tags:
+        - Accounting
+      operationId: deletePrepaymentAllocations
+      summary: Deletes an Allocation from a Prepayment
+      parameters:
+        - $ref: '#/components/parameters/PrepaymentID'
+        - $ref: '#/components/parameters/AllocationID'
+      responses:
+        '200':
+          description: Success - return response of type Allocation with the isDeleted flag as true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+              example: '{
+                          "AllocationId": "2bb15054-3868-4f85-a9c6-0402ec8c1201",
+                          "Date": "\/Date(1551822670731)\/",
+                          "Invoice": [
+                            {
+                              "InvoiceID": "b7eb1fc9-a0f9-4e8e-9373-6689f5350832",
+                            }
+                          ],
+                          "IsDeleted": true,
+                        }'                        
   '/Prepayments/{PrepaymentID}/History':
     parameters:
       - $ref: '#/components/parameters/requiredHeader'
@@ -15396,7 +15484,7 @@ paths:
         - OAuth2: [accounting.attachments, accounting.attachments.read]
       tags:
         - Accounting
-      operationId: getPurchaseOrder≠AttachmentByFileName
+      operationId: getPurchaseOrderAttachmentByFileName
       summary: Retrieves a specific attachment for a specific purchase order by filename
       parameters:
         - $ref: '#/components/parameters/PurchaseOrderID'
@@ -18325,11 +18413,35 @@ paths:
                           "Id": "8b474ddb-9ef4-457c-8640-1c0e3670ea0e",
                           "Status": "OK",
                           "ProviderName": "Java Public Example",
-                          "DateTimeUTC": "\/Date(1555968100978)\/",
+                          "DateTimeUTC": "\/Date(1691540171754)\/",
                           "Reports": [
                             {
-                              "ReportName": "1099 report",
-                              "ReportDate": "1 Jan 2016 to 31 Dec 2016",
+                              "ReportName": "1099-NEC report",
+                              "ReportDate": "1 Jan 2023 to 31 Dec 2023",
+                              "Fields": [],
+                              "Contacts": [
+                                {
+                                  "Box1": 0.00,
+                                  "Box2": 0.00,
+                                  "Box4": 1150.00,
+                                  "Name": "Bank West",
+                                  "FederalTaxIDType": "SSN",
+                                  "City": "Pinehaven",
+                                  "Zip": "12345",
+                                  "State": "CA",
+                                  "Email": "jack@bowest.com",
+                                  "StreetAddress": "Procurement Services\r\nGPO 1234\r\n\r\n\r\n",
+                                  "TaxID": "234-22-2223",
+                                  "ContactId": "81d5706a-8057-4338-8511-747cd85f4c68",
+                                  "LegalName": "Jack Sparrow",
+                                  "BusinessName": "Bank West",
+                                  "FederalTaxClassification": "PARTNERSHIP"
+                                }
+                              ]
+                            },
+                            {
+                              "ReportName": "1099-MISC report",
+                              "ReportDate": "1 Jan 2023 to 31 Dec 2023",
                               "Fields": [],
                               "Contacts": [
                                 {
@@ -18344,7 +18456,6 @@ paths:
                                   "Box9": 0.00,
                                   "Box10": 0.00,
                                   "Box11": 0.00,
-                                  "Box13": 0.00,
                                   "Box14": 0.00,
                                   "Name": "Bank West",
                                   "FederalTaxIDType": "SSN",
@@ -18354,7 +18465,10 @@ paths:
                                   "Email": "jack@bowest.com",
                                   "StreetAddress": "Procurement Services\r\nGPO 1234\r\n\r\n\r\n",
                                   "TaxID": "234-22-2223",
-                                  "ContactId": "81d5706a-8057-4338-8511-747cd85f4c68"
+                                  "ContactId": "81d5706a-8057-4338-8511-747cd85f4c68",
+                                  "LegalName": "Jack Sparrow",
+                                  "BusinessName": "Bank West",
+                                  "FederalTaxClassification": "PARTNERSHIP"
                                 },
                                 {
                                   "Box1": 0.00,
@@ -18368,7 +18482,6 @@ paths:
                                   "Box9": 0.00,
                                   "Box10": 0.00,
                                   "Box11": 0.00,
-                                  "Box13": 0.00,
                                   "Box14": 0.00,
                                   "Name": "Hoyt Productions",
                                   "FederalTaxIDType": "SSN",
@@ -18378,7 +18491,10 @@ paths:
                                   "Email": "accounts@hoytmadeupdemo.com",
                                   "StreetAddress": "100 Rusty Ridge Road\r\nSuite 100\r\n\r\n\r\n",
                                   "TaxID": "123-45-6780",
-                                  "ContactId": "19732b6a-9a5c-4651-b33c-3f8f682e2a2b"
+                                  "ContactId": "19732b6a-9a5c-4651-b33c-3f8f682e2a2b",
+                                  "LegalName": "Raymond Holt",
+                                  "BusinessName": "Hoyt productions",
+                                  "FederalTaxClassification": "S_CORP"
                                 },
                                 {
                                   "Box1": 5543.75,
@@ -18392,7 +18508,6 @@ paths:
                                   "Box9": 0.00,
                                   "Box10": 0.00,
                                   "Box11": 0.00,
-                                  "Box13": 0.00,
                                   "Box14": 0.00,
                                   "Name": "Truxton Property Management",
                                   "FederalTaxIDType": "EIN",
@@ -18402,7 +18517,10 @@ paths:
                                   "Email": "accounts@truxtonmadeupdemo.com",
                                   "StreetAddress": "1000 Copper Avenue\r\nSuite 1000\r\n\r\n\r\n",
                                   "TaxID": "33-3332233",
-                                  "ContactId": "018355fc-c67e-4352-b443-ef3873031983"
+                                  "ContactId": "018355fc-c67e-4352-b443-ef3873031983",
+                                  "LegalName": "Jake Peralta",
+                                  "BusinessName": "Truxton Property Management",
+                                  "FederalTaxClassification": "C_CORP"
                                 }
                               ]
                             }
@@ -23124,6 +23242,16 @@ components:
       schema:
         type: string
         format: uuid
+    AllocationID:
+      required: true
+      in: path
+      name: AllocationID
+      x-snake: allocation_id
+      description: Unique identifier for Allocation object
+      example: "00000000-0000-0000-0000-000000000000"
+      schema:
+        type: string
+        format: uuid        
     AttachmentID:
       required: true
       in: path
@@ -24396,9 +24524,6 @@ components:
           description: Email address of contact person (umlauts not supported) (max length  = 255)
           maxLength: 255
           type: string
-        SkypeUserName:
-          description: Skype user name of contact
-          type: string
         ContactPersons:
           description: See contact persons
           type: array
@@ -24927,6 +25052,10 @@ components:
       externalDocs:
         url: 'http://developer.xero.com/documentation/api/prepayments/'
       properties:
+        AllocationID:
+          description: Xero generated unique identifier
+          type: string
+          format: uuid
         Invoice:
           $ref: '#/components/schemas/Invoice'
         Overpayment:
@@ -24944,6 +25073,10 @@ components:
           description:   the date the allocation is applied YYYY-MM-DD. 
           type: string
           x-is-msdate: true
+        IsDeleted:
+          description: A flag that returns true when the allocation is succesfully deleted
+          type: boolean
+          readOnly: true
         StatusAttributeString:
           description: A string to indicate if a invoice status
           type: string
@@ -25009,6 +25142,7 @@ components:
         - CAD
         - CDF
         - CHF
+        - CLF
         - CLP
         - CNY
         - COP
@@ -25021,6 +25155,7 @@ components:
         - DKK
         - DOP
         - DZD
+        - EEK
         - EGP
         - ERN
         - ETB
@@ -25029,7 +25164,6 @@ components:
         - FKP
         - GBP
         - GEL
-        - GGP
         - GHS
         - GIP
         - GMD
@@ -25043,12 +25177,10 @@ components:
         - HUF
         - IDR
         - ILS
-        - IMP
         - INR
         - IQD
         - IRR
         - ISK
-        - JEP
         - JMD
         - JOD
         - JPY
@@ -25067,6 +25199,7 @@ components:
         - LRD
         - LSL
         - LTL
+        - LVL
         - LYD
         - MAD
         - MDL
@@ -25075,11 +25208,13 @@ components:
         - MMK
         - MNT
         - MOP
+        - MRO
         - MRU
         - MUR
         - MVR
         - MWK
         - MXN
+        - MXV
         - MYR
         - MZN
         - NAD
@@ -25108,11 +25243,13 @@ components:
         - SEK
         - SGD
         - SHP
+        - SKK
+        - SLE
         - SLL
         - SOS
-        - SPL
         - SRD
         - STN
+        - STD
         - SVC
         - SYP
         - SZL
@@ -25123,7 +25260,6 @@ components:
         - TOP
         - TRY_LIRA
         - TTD
-        - TVD
         - TWD
         - TZS
         - UAH
@@ -25132,12 +25268,12 @@ components:
         - UYU
         - UZS
         - VEF
+        - VES
         - VND
         - VUV
         - WST
         - XAF
         - XCD
-        - XDR
         - XOF
         - XPF
         - YER
@@ -25176,6 +25312,7 @@ components:
         - CAD
         - CDF
         - CHF
+        - CLF
         - CLP
         - CNY
         - COP
@@ -25188,6 +25325,7 @@ components:
         - DKK
         - DOP
         - DZD
+        - EEK
         - EGP
         - ERN
         - ETB
@@ -25196,7 +25334,6 @@ components:
         - FKP
         - GBP
         - GEL
-        - GGP
         - GHS
         - GIP
         - GMD
@@ -25210,12 +25347,10 @@ components:
         - HUF
         - IDR
         - ILS
-        - IMP
         - INR
         - IQD
         - IRR
         - ISK
-        - JEP
         - JMD
         - JOD
         - JPY
@@ -25234,6 +25369,7 @@ components:
         - LRD
         - LSL
         - LTL
+        - LVL
         - LYD
         - MAD
         - MDL
@@ -25242,11 +25378,13 @@ components:
         - MMK
         - MNT
         - MOP
+        - MRO
         - MRU
         - MUR
         - MVR
         - MWK
         - MXN
+        - MXV
         - MYR
         - MZN
         - NAD
@@ -25275,10 +25413,12 @@ components:
         - SEK
         - SGD
         - SHP
+        - SKK
+        - SLE
         - SLL
         - SOS
-        - SPL
         - SRD
+        - STD
         - STN
         - SVC
         - SYP
@@ -25290,7 +25430,6 @@ components:
         - TOP
         - TRY
         - TTD
-        - TVD
         - TWD
         - TZS
         - UAH
@@ -25299,12 +25438,12 @@ components:
         - UYU
         - UZS
         - VEF
+        - VES
         - VND
         - VUV
         - WST
         - XAF
         - XCD
-        - XDR
         - XOF
         - XPF
         - YER
@@ -27879,6 +28018,23 @@ components:
           description: Contact contact id
           type: string
           format: uuid
+        LegalName:
+          description: Contact legal name
+          type: string
+        BusinessName:
+          description: Contact business name
+          type: string
+        FederalTaxClassification:
+          descrption: Contact federal tax classification
+          type: string
+          enum:
+            - SOLE_PROPRIETOR
+            - PARTNERSHIP
+            - TRUST_OR_ESTATE
+            - NONPROFIT
+            - C_CORP
+            - S_CORP
+            - OTHER
     Schedule:
       externalDocs:
         url: 'http://developer.xero.com/documentation/api/repeating-invoices/'
@@ -27994,10 +28150,10 @@ components:
       - IGDSINPUT3
       - SROVR
       - TOURISTREFUND
-      - TXRCN33INPUT
-      - TXRCREINPUT
-      - TXRCESSINPUT
-      - TXRCTSINPUT
+      - TXRCN33
+      - TXRCRE
+      - TXRCESS
+      - TXRCTS
       - OUTPUTY23
       - DSOUTPUTY23
       - INPUTY23
@@ -28013,6 +28169,20 @@ components:
       - SROVRRSY23
       - SROVRLVGY23
       - SRLVGY23
+      - TXRCN33Y23
+      - TXRCREY23
+      - TXRCESSY23
+      - TXRCTSY23
+      - IM
+      - IMY23
+      - IMESS
+      - IMESSY23
+      - IMN33
+      - IMN33Y23
+      - IMRE
+      - IMREY23
+      - BADDEBTRECOVERY
+      - BADDEBTRECOVERYY23
     Setup:
       externalDocs:
         url: 'https://developer.xero.com/documentation/api-guides/conversions'
@@ -28235,10 +28405,10 @@ components:
           - IGDSINPUT3
           - SROVR
           - TOURISTREFUND
-          - TXRCN33INPUT
-          - TXRCREINPUT
-          - TXRCESSINPUT
-          - TXRCTSINPUT
+          - TXRCN33
+          - TXRCRE
+          - TXRCESS
+          - TXRCTS
           - CAPEXINPUT
           - UNDEFINED
           - CAPEXOUTPUT
@@ -28249,6 +28419,11 @@ components:
           - SROVRRS
           - SROVRLVG
           - SRLVG
+          - IM
+          - IMESS
+          - IMN33
+          - IMRE
+          - BADDEBTRECOVERY
         CanApplyToAssets:
           description: Boolean to describe if tax rate can be used for asset accounts i.e.  true,false
           readOnly: true
