@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+{{#appName}}
+{{{appName}}}
+
+{{/appName}}
+{{#appDescription}}
+{{{appDescription}}}
+
+{{/appDescription}}
+{{#version}}The version of the OpenAPI document: {{{version}}}{{/version}}
+{{#infoEmail}}Contact: {{{infoEmail}}}{{/infoEmail}}
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>{{testPackageName}}</RootNamespace>
+    <AssemblyName>{{testPackageName}}</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="CompareNETObjects" Version="4.78.0" />
+      <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+      <PackageReference Include="xunit" Version="2.4.1" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+      <PackageReference Include="RestSharp" Version="106.6.7" />
+      <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+  <Import Project="..\..\packages\DotNet.Library.2.0.3\build\net6.0\DotNet.Library.targets" Condition="Exists('..\..\packages\DotNet.Library.2.0.3\build\net6.0\DotNet.Library.targets')" />
+  <ItemGroup>
+      <ProjectReference Include="..\{{packageName}}\{{packageName}}.csproj">
+          <Project>{{packageGuid}}</Project>
+          <Name>{{packageName}}</Name>
+      </ProjectReference>
+  </ItemGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+      <PropertyGroup>
+          <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+      </PropertyGroup>
+      <Error Condition="!Exists('..\..\packages\DotNet.Library.2.0.3\build\net6.0\DotNet.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\DotNet.Library.2.0.3\build\net6.0\DotNet.Library.targets'))" />
+  </Target>
+</Project>
+

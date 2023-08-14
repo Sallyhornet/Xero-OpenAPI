@@ -15,11 +15,11 @@ jobs:
            dotnet-version: '2.2.103'
     - name: Setup Hub
       uses: Geertvdc/setup-hub@v1.0.0
-    - name: Clone Xero-NetStandard
+    - name: Clone Xero-DotNet
       if: success()
       run: |
-            git clone https://github.com/XeroAPI/Xero-NetStandard.git
-            cd Xero-NetStandard/
+            git clone https://github.com/XeroAPI/Xero-DotNet.git
+            cd Xero-DotNet/
             git checkout oauth2
             git pull
     - name: generate csharp
@@ -29,30 +29,30 @@ jobs:
     - name: build project
       if: success()
       run: |
-          cd generator/output/csharp-netcore/accounting/src/Xero.NetStandard.OAuth2
+          cd generator/output/csharp-dotnet/accounting/src/Xero.DotNet.OAuth2
           sudo dotnet build
     - uses: actions/upload-artifact@v1
       if: success()
       with:
-       name: Xero.NetStandard.OAuth2
-       path: generator/output/csharp-netcore/accounting/src/Xero.NetStandard.OAuth2      
+       name: Xero.DotBet.OAuth2
+       path: generator/output/csharp-dotnet/accounting/src/Xero.DotNet.OAuth2      
     - name: Copy project
       if: success()
       run: |
-          sudo cp -rf generator/output/csharp-netcore/accounting/src/Xero.NetStandard.OAuth2 Xero-NetStandard/
+          sudo cp -rf generator/output/csharp-dotnet/accounting/src/Xero.DotNet.OAuth2 Xero-DotNet/
     - name: create branch
       if: success()
       env:
         GITHUB_USER: ${GITHUB_ACTOR}
         GITHUB_TOKEN: ${{ secrets.ACCESSTOKEN }}
       run: |
-          cd Xero-NetStandard/
+          cd Xero-DotNet/
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git checkout -b openapi/${GITHUB_SHA::7}
           git add -A
           git commit -m "Changes from OpenAPI update"
-          git push -u https://x-access-token:${{ secrets.ACCESSTOKEN }}@github.com/XeroAPI/Xero-NetStandard.git openapi/${GITHUB_SHA::7}
+          git push -u https://x-access-token:${{ secrets.ACCESSTOKEN }}@github.com/XeroAPI/Xero-DotNet.git openapi/${GITHUB_SHA::7}
           
           
           

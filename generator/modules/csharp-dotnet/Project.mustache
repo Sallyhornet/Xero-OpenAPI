@@ -1,0 +1,37 @@
+<!--
+{{#appName}}
+{{{appName}}}
+
+{{/appName}}
+{{#appDescription}}
+{{{appDescription}}}
+
+{{/appDescription}}
+{{#version}}The version of the OpenAPI document: {{version}}{{/version}}
+{{#infoEmail}}Contact: {{{infoEmail}}}{{/infoEmail}}
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>{{targetFrameworkIdentifier}}</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>{{targetFrameworkVersion}}</TargetFrameworkVersion>
+    <PackageId>{{packageName}}</PackageId>
+    <Version>{{packageVersion}}</Version>
+    <Authors>Xero</Authors>
+    <Company>Xero</Company>
+    <licenseUrl>https://github.com/XeroAPI/Xero-DotNet/tree/oauth2</licenseUrl>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/7fff030fb8040a5157c3fd463858167f.png?s=128</PackageIconUrl>
+    <Owners>Xero</Owners>
+    <Copyright>Copyright © Xero 2023</Copyright>
+    <PackageTags>xero;api;sdk;oauth2;oauth2.0</PackageTags>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageDescription>This is a .DotNet SDK library, used to communicate with the Xero API using OAuth2.0. See https://github.com/XeroAPI/Xero-DotNet for more information</PackageDescription>
+  </PropertyGroup>
+  <ItemGroup>
+      <PackageReference Include="CompareNETObjects" Version="4.78.0" />
+      <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+      <PackageReference Include="RestSharp" Version="106.6.7" />
+      <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+</Project>
+
